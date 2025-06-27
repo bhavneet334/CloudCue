@@ -71,6 +71,16 @@ body {
   margin-top: -10px;
 }
 
+.sun-times {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+
 .details {
   display: flex;
   align-items: center;

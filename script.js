@@ -14,6 +14,7 @@ const humidityEl = document.querySelector(".humidity");
 const windEl = document.querySelector(".wind");
 const sunriseEl = document.querySelector(".sunrise");
 const sunsetEl = document.querySelector(".sunset");
+const aqiEl = document.querySelector(".aqi");
 
 window.onload = () => {
   const last = localStorage.getItem("lastCity");
@@ -73,6 +74,10 @@ async function checkWeather(cityName) {
     sunsetEl.textContent =
       "Sunset : " + new Date(data.sys.sunset * 1000).toLocaleTimeString();
 
+    // aqiEl.textContent = checkAQI()
+    const aqi = "AQI : " + (await checkAQI(data.coord.lat, data.coord.lon));
+    aqiEl.textContent = aqi;
+
     const icons = {
       Clouds: "clouds.png",
       Rain: "rain.png",
@@ -94,6 +99,16 @@ async function checkWeather(cityName) {
   }
 }
 
+async function checkAQI(lat, lon) {
+  const aqiApiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+  const res = await fetch(aqiApiUrl);
+  const data = await res.json();
+
+  const aqi = data.list[0].main.aqi;
+  return aqi;
+}
+
 searchBtn.addEventListener("click", () => {
   const city = searchBox.value.trim();
   if (city !== "") {
@@ -105,6 +120,7 @@ searchBtn.addEventListener("click", () => {
 searchBox.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     checkWeather(searchBox.value.trim());
+    localStorage.setItem("lastCity", searchBox.value.trim());
   }
 });
 
