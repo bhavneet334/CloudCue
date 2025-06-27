@@ -12,6 +12,16 @@ const cityEl = document.querySelector(".city");
 const tempEl = document.querySelector(".temp");
 const humidityEl = document.querySelector(".humidity");
 const windEl = document.querySelector(".wind");
+const sunriseEl = document.querySelector(".sunrise");
+const sunsetEl = document.querySelector(".sunset");
+
+window.onload = () => {
+  const last = localStorage.getItem("lastCity");
+  if (last) {
+    document.querySelector(".search input").value = last;
+    checkWeather(last);
+  }
+};
 
 unitToggle.value = currentUnit;
 
@@ -32,6 +42,8 @@ async function checkWeather(cityName) {
   try {
     const response = await fetch(getApiUrl(cityName));
     const data = await response.json();
+
+    console.log(data);
 
     const elapsed = Date.now() - startTime;
     const remainingTime = Math.max(0, minDisplayTime - elapsed);
@@ -56,6 +68,11 @@ async function checkWeather(cityName) {
     const windUnit = currentUnit === "imperial" ? "mph" : "km/h";
     windEl.textContent = data.wind.speed + " " + windUnit;
 
+    sunriseEl.textContent =
+      "Sunrise : " + new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+    sunsetEl.textContent =
+      "Sunset : " + new Date(data.sys.sunset * 1000).toLocaleTimeString();
+
     const icons = {
       Clouds: "clouds.png",
       Rain: "rain.png",
@@ -78,7 +95,11 @@ async function checkWeather(cityName) {
 }
 
 searchBtn.addEventListener("click", () => {
-  checkWeather(searchBox.value.trim());
+  const city = searchBox.value.trim();
+  if (city !== "") {
+    localStorage.setItem("lastCity", city);
+    checkWeather(city);
+  }
 });
 
 searchBox.addEventListener("keypress", (e) => {

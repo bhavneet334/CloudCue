@@ -10,8 +10,9 @@ body {
 }
 
 .card {
+  /* border: 2px solid red; */
   width: 90%;
-  max-width: 500px;
+  max-width: 570px;
   background: linear-gradient(135deg, #00feba, #5b548a);
   color: #fff;
   margin: 4rem auto 0;
@@ -76,6 +77,14 @@ body {
   justify-content: space-between;
   padding: 0 20px;
   margin-top: 50px;
+}
+
+.extra {
+  margin-top: 20px;
+  font-size: 18px;
+}
+.extra p {
+  margin: 4px 0;
 }
 
 .col {
