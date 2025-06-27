@@ -6,12 +6,12 @@
 }
 
 body {
-  background-color: black;
+  background-color: rgb(248, 244, 244);
 }
 
 .card {
   width: 90%;
-  max-width: 470px;
+  max-width: 500px;
   background: linear-gradient(135deg, #00feba, #5b548a);
   color: #fff;
   margin: 4rem auto 0;
@@ -21,11 +21,9 @@ body {
 }
 
 .search {
-  /* border: 5px solid black; */
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .search input {
@@ -129,4 +127,52 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+.unit-toggle-wrapper {
+  position: relative;
+  margin-right: 16px;
+  display: inline-block;
+}
+
+.unit-toggle-wrapper::after {
+  content: "";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #555;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.unit-toggle {
+  border: 0;
+  outline: 0;
+  background: #ebfffc;
+  color: #555;
+  border-radius: 30px;
+  padding: 10px 45px 10px 25px;
+  margin-right: 0;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  height: 60px;
+  transition: background 0.3s;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  min-width: 80px;
+}
+
+.unit-toggle:hover {
+  background: #d4f4f0;
+}
+
+.unit-toggle option {
+  background: #ebfffc;
+  color: #555;
 }
